@@ -1,0 +1,182 @@
+DAOクラス
+
+　ユーザーDAO   UserDAO
+　（DB接続、selectAll、selectByユーザーID、selectByメールアドレス・パスワード、insert、update、delete）
+ 
+　管理者DAO   AdministratorDAO
+　（DB接続、selectByユーザーID、selectByメールアドレス・パスワード）
+
+　商品DAO   ItemDAO
+　（DB接続、selectAll、selectNowOn、selectBy商品ID、selectBy出品者ID、selectNowOnBy出品者ID（現在販売中だけ）、insert、update、delete、search）
+
+　購入DAO   PurchaseDAO
+　（DB接続、insert、selectAll、 selectBy商品ID、selectBy売上げID、updatePay、updateSend）
+
+　購入履歴DAO   PurchaseHistoryDAO
+　（DB接続、selectAll、selectBy購入者ID）
+
+　売上げDAO   SalesDAO
+　（DB接続、selectAll、指定年月・指定ユーザーの売上げ取得）
+
+　お気に入りDAO   FavoriteDAO
+　（DB接続、insert、selectBy登録者ID、delete）
+　
+
+
+モデル（Bean）クラス
+
+　ユーザークラス   User
+　　・ID
+　　・名前
+　　・ニックネーム
+　　・メールアドレス
+　　・生年月日
+　　・パスワード
+　　・郵便番号
+　　・住所
+　　・出品状態
+　　・状態
+
+　管理者クラス   Administrator
+　　・ID
+　　・名前
+　　・メールアドレス
+　　・パスワード
+
+　商品クラス  Item
+　　・商品ID
+　　・出品者ID
+　　・商品名
+　　・商品種類（種類テーブルから取得）
+　　・個数
+　　・販売価格
+　　・商品説明
+　　・商品状態
+　　・画像パス
+　　・販売状態
+　　・出品日時
+　　・更新日時
+
+
+　購入クラス   Purchase
+　　・売上げID
+　　・商品ID
+　　・出品者ID
+　　・出品者ニックネーム
+　　・商品名
+　　・商品種類（種類テーブルから取得）
+　　・個数
+　　・購入価格
+　　・商品説明
+　　・商品状態
+　　・画像パス
+　　・購入者ID
+　　・購入者ニックネーム
+　　・購入日時
+　　・入金状況
+　　・入金日時
+　　・発送状況
+　　・発送日時
+
+　購入履歴クラス   PurchaseHistory
+　　・売上げID
+　　・出品者ID
+　　・出品者 ニックネーム
+　　・商品ID
+　　・商品名
+　　・商品説明
+　　・購入価格
+　　・画像パス
+　　・購入者ID
+　　・購入日時
+　　・発送状況
+
+　売上げクラス   Sales
+　　・売上げID
+　　・出品者ID
+　　・出品者 名前
+　　・商品ID
+　　・商品名
+　　・購入価格
+
+　お気に入りクラス   Favorite
+　　・お気に入りID
+　　・登録者ID
+　　・商品ID
+　　・商品名
+　　・販売価格
+　　・商品説明
+　　・画像パス
+　　・登録日時
+
+
+
+ライブラリ（書籍管理システムから引っ張る）
+　メール送信
+　画像読み込み
+
+
+
+権限や機能単位
+　ログイン機能   Login
+　（管理者・ユーザー別々）
+　　ユーザーDAO selectByユーザーID・パスワード
+　ログアウト機能   Logout
+
+　ユーザー一覧   ListUser
+　　ユーザーDAO selectAll
+　ユーザー登録   InsertUser
+　　ユーザーDAO insert
+　ユーザー詳細   DetailUser
+　　ユーザーDAO selectByユーザーID
+　ユーザー更新   UpdateUser
+　　ユーザーDAO update
+　ユーザー削除   DeleteUser
+　　ユーザーDAO delete
+
+　商品一覧   ListItem
+　　商品DAO selectNowOn
+　商品検索   SearchItem
+　　商品DAO search
+
+　出品登録＋ユーザー情報出品状態変更   InsertItem
+　　商品DAO insert
+　出品商品情報詳細   DetailItem
+　　商品DAO selectBy商品ID
+　　購入DAO selectBy商品ID
+　出品商品情報更新   UpdateItem
+　　商品DAO update
+　出品商品情報更新（発送）UpdateSendInfo
+　　購入DAO updateSend
+　出品商品情報削除  DeleteItem
+　　商品DAO delete
+
+　出品履歴  HistoryItem
+　　商品DAO selectBy出品者ID
+　指定ユーザーの販売中商品一覧  ListItemByUser
+　　商品DAO selectNowOnBy出品者ID
+
+　お気に入り登録  InsertFavorite
+　　お気に入りDAO insert
+　お気に入り一覧   ListFavorite
+　　お気に入りDAO selectBy登録者ID
+　お気に入り削除   DeleteFavorite
+　　お気に入りDAO delete
+
+　購入   InsertPurchase
+　　購入DAO insert
+　　メール送信
+　購入情報詳細　　DetailPurchase
+　　購入DAO selectBy売上げID
+　購入情報更新（入金）  UpdatePayInfo
+　　購入DAO updatePay
+　　メール送信
+　購入履歴   HistoryPurchase
+　　購入履歴DAO selectBy購入者ID
+
+　売上げ一覧  ListSales
+　　売上げDAO selectAll
+　指定年月の売上げ表示  SalesByMonth
+　　売上げDAO 指定年月の売上げ取得
+　指定年月・指定ユーザーの売上げ表示   SalesByMonthUser
+　　売上げDAO 指定年月・指定ユーザーの売上げ取得
