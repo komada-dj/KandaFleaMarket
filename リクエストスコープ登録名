@@ -1,0 +1,14 @@
+ユーザー一覧
+request.setAttribute("user_list", userList);
+
+商品一覧
+request.setAttribute("item_list", itemList);
+
+指定ユーザーの販売中商品一覧
+request.setAttribute("user_item_list", userItemList);
+
+お気に入り一覧
+request.setAttribute("favorite_list", favoriteList);
+
+売上一覧
+request.setAttribute("profit_list", profitList);
